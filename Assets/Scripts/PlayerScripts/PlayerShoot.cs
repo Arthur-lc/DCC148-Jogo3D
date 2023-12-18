@@ -25,6 +25,7 @@ public class PlayerShoot : MonoBehaviour
         GameObject obj;
         obj = pool.GetFromPool();
         obj.transform.position =  firePoint.position;
+        obj.transform.forward = firePoint.forward;
         shoot.Play();
     }
 }

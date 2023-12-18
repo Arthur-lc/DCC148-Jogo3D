@@ -6,13 +6,6 @@ public class Shoot : MonoBehaviour
 {
    private float speed = 15f;
 	public GameObject obj;
-    private Transform player;
-    private Vector3 direction;
-    void Start()
-    {
-        player = GameObject.FindWithTag("Player").transform;
-        direction = player.forward;
-    }
 
     // Update is called once per frame
     void Update()
@@ -22,7 +15,7 @@ public class Shoot : MonoBehaviour
     }
     void movimentar(){
         Rigidbody bulletRb = transform.GetComponent<Rigidbody>();
-    	bulletRb.velocity = direction * speed;
+    	bulletRb.velocity = transform.forward * speed;
     }
     void sumir(){
     	if(transform.position.x > 7){

@@ -4,31 +4,33 @@ using UnityEngine;
 
 public class ObjectPool{
 	private GameObject prefab;
-   	private Queue<GameObject> queue;
-    	private int poolSize;
+	private GameObject[] queue;
+	private int index = 0; //posição do proximo objeto a ser retornado pela pool
+    private int poolSize;
+
 
 
 	public ObjectPool(GameObject prefab, int poolSize)
 	{
 	    this.prefab = prefab;
 	    this.poolSize = poolSize;
-	    queue = new Queue<GameObject>();
+	    queue = new GameObject[poolSize];
 	    for(int i = 0; i < this.poolSize; i++)
 	    {
-		GameObject obj = Object.Instantiate(prefab);
-		obj.SetActive(false);
-		queue.Enqueue(obj);
+			GameObject obj = Object.Instantiate(prefab);
+			obj.SetActive(false);
+			queue[i] = obj;
 	    }
 	}
+
 	public GameObject GetFromPool()
 	{
-	    GameObject obj = queue.Peek();
-	    if(obj.activeSelf)
-		return null;
-
-	    queue.Dequeue();
-	    queue.Enqueue(obj);
+	    GameObject obj = queue[index];
 	    obj.SetActive(true);
+
+		index++;
+		index %= poolSize;
+	    
 	    return obj;
 	}
 
