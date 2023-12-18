@@ -4,37 +4,34 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-   private float speed = 15f;
+   private float speed = 20f;
 	public GameObject obj;
+    [SerializeField] public Transform firePoint;
 
     // Update is called once per frame
     void Update()
     {
         movimentar();
-        //sumir();
     }
     void movimentar(){
         Rigidbody bulletRb = transform.GetComponent<Rigidbody>();
-    	bulletRb.velocity = transform.forward * speed;
+    	Vector3 direction = (firePoint.transform.position - transform.position).normalized;
+        bulletRb.velocity = direction * speed;
+    }
+    void FixedUpdate(){
+        sumir();
     }
     void sumir(){
-    	if(transform.position.x > 7){
-    		obj.SetActive(false);
-    	}
+        if (Vector3.Distance(transform.position, firePoint.transform.position) < 0.1f)
+        {
+            obj.SetActive(false);
+        }
     }
     private void OnTriggerEnter(Collider other){
         obj.SetActive(false);
-        // if (other.CompareTag("Enemy1")){
-        // other.GetComponent<Enemy1>().DesativarInimigo();
-        //     obj.SetActive(false);
-        // }
-        // if (other.CompareTag("Enemy2")){
-        // other.GetComponent<Enemy2>().DesativarInimigo();
-        //     obj.SetActive(false);
-        // }
-        // if (other.CompareTag("Enemy3")){
-        // other.GetComponent<Enemy3>().DesativarInimigo();
-        //     obj.SetActive(false);
-        // }
+        if (other.CompareTag("Enemy")){
+            other.GetComponent<HealthComponent>().TakeDamage(1);
+            obj.SetActive(false);
+        }
     }
 }

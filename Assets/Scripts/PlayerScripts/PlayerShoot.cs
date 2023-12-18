@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     private ObjectPool pool;
-	public GameObject bulletPrefab;
-    public Transform firePoint;
+	[SerializeField] public GameObject bulletPrefab;
+    [SerializeField] public Transform firePoint;
     private AudioSource shoot;
+    private bool isShooting = false;
 
     void Start()
     {
@@ -17,6 +18,12 @@ public class PlayerShoot : MonoBehaviour
 
     void Update(){
         if(Input.GetButtonDown("Fire1")){
+            isShooting = true;
+        }
+        if(Input.GetButtonUp("Fire1")){
+            isShooting = false;
+        }
+        if(isShooting){
             atirar();
         }
     }

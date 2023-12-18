@@ -14,6 +14,7 @@ public class WaveControl : MonoBehaviour
     //public WinScreen winScreen;
     void Start()
     {
+        Debug.Log("Iniciando Wave " + currentWave);
         StartNextWave();
     }
 
