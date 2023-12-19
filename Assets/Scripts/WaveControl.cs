@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WaveControl : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class WaveControl : MonoBehaviour
     // Distância mínima entre o jogador e a posição de spawn dos inimigos
     public float minSpawnDistance = 10f;
     private int enemiesAlive = 0;
+
+    [Header("Spawn Volume")]
+    [SerializeField] private float VolumeX = 2f;
+    [SerializeField] private float VolumeY = 2f;
+    [SerializeField] private float VolumeZ = 2f;
 
     void Start()
     {
@@ -63,8 +69,12 @@ public class WaveControl : MonoBehaviour
 
     private Vector3 CalculateSpawnPosition()
     {
-        Vector2 randomOffset = Random.insideUnitCircle.normalized * minSpawnDistance;
-        Vector3 spawnPosition = new Vector3(playerTransform.position.x + randomOffset.x, playerTransform.position.y, playerTransform.position.z + randomOffset.y);
+        Vector3 spawnPosition;
+
+        do {
+            spawnPosition = GetRandomNavMeshPoint();
+        } while(Vector3.Distance(playerTransform.position, spawnPosition) < minSpawnDistance);
+
         return spawnPosition;
     }
 
@@ -83,5 +93,39 @@ public class WaveControl : MonoBehaviour
         if (enemiesAlive == 0) {
             EnemyDefeated();
         }
+    }
+
+    public Vector3 GetRandomNavMeshPoint()
+    {
+        // Generate a random point within the cube.
+        Vector3 randomPoint = new Vector3(
+            Random.Range(-VolumeX / 2, VolumeX / 2),
+            Random.Range(-VolumeZ / 2, VolumeZ / 2),
+            Random.Range(-VolumeY / 2, VolumeY / 2)
+        );
+
+        randomPoint += transform.position;
+
+        // Initialize a NavMeshHit object to store the output.
+        NavMeshHit hit;
+
+        // Get the closest point on NavMesh.
+        if (NavMesh.SamplePosition(randomPoint, out hit, Mathf.Max(VolumeX, VolumeZ, VolumeY), NavMesh.AllAreas))
+        {
+            // If the point is found, return it.
+            return hit.position;
+        }
+
+        // If no point is found, return Vector3.zero or any fallback position.
+        return Vector3.zero;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.DrawCube(transform.position, new Vector3(VolumeX, VolumeZ, VolumeY));
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(playerTransform.position, minSpawnDistance);
     }
 }
