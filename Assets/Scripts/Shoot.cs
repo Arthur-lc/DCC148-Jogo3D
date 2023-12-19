@@ -20,7 +20,6 @@ public class Shoot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other){
         if (other.CompareTag("Enemy")){
-            Debug.Log("Pegou no inimigo");
             other.GetComponent<HealthComponent>().TakeDamage(damage);
         }
 
