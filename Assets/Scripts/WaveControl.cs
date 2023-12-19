@@ -5,6 +5,11 @@ using UnityEngine.AI;
 
 public class WaveControl : MonoBehaviour
 {
+    public class RandonNavMeshPointException : System.Exception
+    {
+        public RandonNavMeshPointException() : base("Não foi possivel encontrar um ponto valido") {}
+    }
+
     public int maxWaves = 5;
     private int currentWave = 1;
     private int enemiesInWave = 3;
@@ -27,7 +32,8 @@ public class WaveControl : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.J))
+            StartNextWave();
     }
 
     public void EnemyDefeated()
@@ -97,31 +103,41 @@ public class WaveControl : MonoBehaviour
 
     public Vector3 GetRandomNavMeshPoint()
     {
-        // Gera um ponto aleatório dentro de um cubo
-        Vector3 randomPoint = new Vector3(
-            Random.Range(-VolumeX / 2, VolumeX / 2),
-            Random.Range(-VolumeZ / 2, VolumeZ / 2),
-            Random.Range(-VolumeY / 2, VolumeY / 2)
-        );
-
-        randomPoint += transform.position;
-        NavMeshHit hit;
-
-        // Ponto mais proximo no navMesh
-        if (NavMesh.SamplePosition(randomPoint, out hit, Mathf.Max(VolumeX, VolumeZ, VolumeY), NavMesh.AllAreas))
+        // Gera um ponto aleatório dentro de um cubo (tenta 4 vezes)
+        for (int i = 0; i < 4; i++)
         {
-            return hit.position;
+            Vector3 randomPoint = new Vector3(
+                Random.Range(-VolumeX / 2, VolumeX / 2),
+                Random.Range(-VolumeZ / 2, VolumeZ / 2),
+                Random.Range(-VolumeY / 2, VolumeY / 2)
+            );
+
+            randomPoint += transform.position;
+            NavMeshHit NavMeshhit;
+
+            // Ponto mais proximo no navMesh
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshhit, Mathf.Max(VolumeX, VolumeZ, VolumeY), NavMesh.AllAreas))
+            {
+                // checa se o o ponto gerado está dentro de uma parede ???? porque unity????
+                if (!Physics.Raycast(NavMeshhit.position, Vector2.up, out RaycastHit hit)) {
+                    return NavMeshhit.position;
+                }
+                Debug.DrawLine(NavMeshhit.position, NavMeshhit.position + Vector3.up * 100f , Color.green, 1f);
+            }
         }
 
-        return Vector3.zero;
+        throw new RandonNavMeshPointException();
     }
 
     void OnDrawGizmos()
     {
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
-        Gizmos.DrawCube(transform.position, new Vector3(VolumeX, VolumeZ, VolumeY));
+        if (!Application.isPlaying)
+        {
+            Gizmos.color = new Color(1, 0, 0, 0.5f);
+            Gizmos.DrawCube(transform.position, new Vector3(VolumeX, VolumeZ, VolumeY));
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(playerTransform.position, minSpawnDistance);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(playerTransform.position, minSpawnDistance);
+        }
     }
 }

@@ -21,8 +21,8 @@ public class PlayerShoot : MonoBehaviour
     void Start()
     {
         pool = new ObjectPool(bulletPrefab,balas);
-        shoot = GetComponents<AudioSource>()[0];
-        noAmmo = GetComponents<AudioSource>()[1];
+        //shoot = GetComponents<AudioSource>()[0];
+        //noAmmo = GetComponents<AudioSource>()[1];
         municaoAtual = balas;
     }
 
@@ -35,7 +35,7 @@ public class PlayerShoot : MonoBehaviour
         }
         tempoDisparo += Time.deltaTime;
         if(municaoAtual==0 && Input.GetButtonDown("Fire1")){
-            noAmmo.Play();
+            //noAmmo.Play();
         }
         if(isShooting && tempoDisparo > 0.4f && municaoAtual>0){
             atirar();
@@ -65,7 +65,7 @@ public class PlayerShoot : MonoBehaviour
         obj.transform.position =  firePoint.position;
         Vector3 direction = (fireTarget.position - firePoint.position).normalized;
         obj.transform.forward = direction;
-        shoot.Play();
+        //shoot.Play();
     }
 
     public void AlterarBarra(){

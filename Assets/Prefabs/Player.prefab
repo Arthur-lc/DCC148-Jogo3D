@@ -653,7 +653,7 @@ Transform:
   m_GameObject: {fileID: 2788527474369168651}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.204, z: 0}
+  m_LocalPosition: {x: 0, y: 1.012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -691,7 +691,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.2
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -832,6 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afeb457989469fd4b97b0bfa72e61dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 2788527474369168646}
   mouseSensitivity: 500
   topClamp: -90
   bottomClamp: 90
@@ -850,12 +851,12 @@ MonoBehaviour:
   speed: 12
   runSpeed: 18
   gravity: -30
-  jumpHeight: 3
+  jumpHeight: 2.8
   groundCheck: {fileID: 2788527474536008065}
-  groundDistance: 0.4
+  groundDistance: 0.1
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
 --- !u!95 &2788527475115734589
 Animator:
   serializedVersion: 5

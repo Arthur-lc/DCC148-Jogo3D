@@ -9843,6 +9843,12 @@ MonoBehaviour:
   cannonForce: 50
   fireCooldown: 4
   firePoint: {fileID: 1410933740652988838}
+  worldMak:
+    serializedVersion: 2
+    m_Bits: 512
+  PlayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &8657288312312918095
 GameObject:
   m_ObjectHideFlags: 0
