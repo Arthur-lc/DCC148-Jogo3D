@@ -74,9 +74,15 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         if (isGrounded)
-    {
-        // Resetar a variável de animação quando estiver no chão
-        animator.SetBool("isJumping", false);
+        {
+            // Resetar a variável de animação quando estiver no chão
+            animator.SetBool("isJumping", false);
+        }
     }
+
+    void OnDrawGizmos()
+    {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
     }
 }
