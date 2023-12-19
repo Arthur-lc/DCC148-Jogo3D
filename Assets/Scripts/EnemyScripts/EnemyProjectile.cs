@@ -11,11 +11,8 @@ public class EnemyProjectile : MonoBehaviour
         PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
         if (playerHealth) {
             playerHealth.TakeDamage(damage);
-            Destroy(gameObject);
         }
 
-        time += Time.deltaTime;
-        if (time > 5f)
-            Destroy(gameObject);
+        Destroy(gameObject);
     }
 }
