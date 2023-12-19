@@ -10,14 +10,28 @@ public class HealthComponent : MonoBehaviour
     public UnityEvent onDeath;
 
     private float hp;
+    private AudioSource damage;
 
     private void Start() {
         hp = maxHp;
+        damage = GetComponents<AudioSource>()[1];
     }
 
-    public void TakeDamage(float damge) {
+     public void TakeDamage(float damge)
+    {
+        StartCoroutine(PlayDamageSoundAndWait(damge));
+    }
+
+    private System.Collections.IEnumerator PlayDamageSoundAndWait(float damge)
+    {
+        damage.Play();
+
+        // Aguarde o tempo do áudio
+        yield return new WaitForSeconds(damage.clip.length);
+
         hp -= damge;
-        if (hp < 0f) {
+        if (hp <= 0f)
+        {
             onDeath.Invoke();
         }
     }

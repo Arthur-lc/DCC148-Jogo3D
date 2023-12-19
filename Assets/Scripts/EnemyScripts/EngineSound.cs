@@ -13,7 +13,7 @@ public class EngineSound : MonoBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponents<AudioSource>()[0];
         navMeshAgent = GetComponent<NavMeshAgent>();
         audioSource.time = Random.Range(0, 10f);
     }
