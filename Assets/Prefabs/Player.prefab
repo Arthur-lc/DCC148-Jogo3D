@@ -934,7 +934,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6714197667015052535, guid: 56baaf6871c5f184eb38e369e1a0458a, type: 3}
   firePoint: {fileID: 7551344678697050516}
   fireTarget: {fileID: 5850546111736673670}
-  barraImage: {fileID: 5602442216015824845}
+  bulletBar: {fileID: 5602442216015824845}
+  backBulletBar: {fileID: 2974597100927989551}
 --- !u!82 &3730113050693459317
 AudioSource:
   m_ObjectHideFlags: 0

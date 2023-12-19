@@ -16,7 +16,7 @@ public class PlayerShoot : MonoBehaviour
     private int municaoAtual;
     public Image bulletBar;
     public Image backBulletBar;
-    private float fillDuration = 5f;  
+    private float fillDuration = 4f;  
     private float fillTimer = 0f;
     void Start()
     {
