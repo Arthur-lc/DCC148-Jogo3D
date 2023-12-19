@@ -7,13 +7,17 @@ public class PlayerShoot : MonoBehaviour
     private ObjectPool pool;
 	[SerializeField] public GameObject bulletPrefab;
     [SerializeField] public Transform firePoint;
+    [SerializeField] public Transform fireTarget;
     private AudioSource shoot;
     private bool isShooting = false;
-
+    private float tempoDisparo = 0f;
+    private int balas = 20;
+    private int municaoAtual;
     void Start()
     {
-        pool = new ObjectPool(bulletPrefab,20);
+        pool = new ObjectPool(bulletPrefab,balas);
         shoot = GetComponent<AudioSource>();
+        municaoAtual = balas;
     }
 
     void Update(){
@@ -23,8 +27,17 @@ public class PlayerShoot : MonoBehaviour
         if(Input.GetButtonUp("Fire1")){
             isShooting = false;
         }
+        tempoDisparo += Time.deltaTime;
         if(isShooting){
-            atirar();
+            if(tempoDisparo > 0.4f){
+                atirar();
+                tempoDisparo = 0f;
+                municaoAtual--;
+            }
+        }
+        if(municaoAtual == 0 ||Input.GetKeyDown(KeyCode.R)){
+            tempoDisparo = -5.0f;
+            municaoAtual = balas;
         }
     }
 
@@ -32,7 +45,8 @@ public class PlayerShoot : MonoBehaviour
         GameObject obj;
         obj = pool.GetFromPool();
         obj.transform.position =  firePoint.position;
-        obj.transform.forward = firePoint.forward;
+        Vector3 direction = (fireTarget.position - firePoint.position).normalized;
+        obj.transform.forward = direction;
         shoot.Play();
     }
 }
