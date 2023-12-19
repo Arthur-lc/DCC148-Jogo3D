@@ -9,6 +9,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] public Transform firePoint;
     [SerializeField] public Transform fireTarget;
     private AudioSource shoot;
+    private AudioSource noAmmo;
     private bool isShooting = false;
     private float tempoDisparo = 0f;
     private int balas = 20;
@@ -20,7 +21,8 @@ public class PlayerShoot : MonoBehaviour
     void Start()
     {
         pool = new ObjectPool(bulletPrefab,balas);
-        shoot = GetComponent<AudioSource>();
+        shoot = GetComponents<AudioSource>()[0];
+        noAmmo = GetComponents<AudioSource>()[1];
         municaoAtual = balas;
     }
 
@@ -32,6 +34,9 @@ public class PlayerShoot : MonoBehaviour
             isShooting = false;
         }
         tempoDisparo += Time.deltaTime;
+        if(municaoAtual==0 && Input.GetButtonDown("Fire1")){
+            noAmmo.Play();
+        }
         if(isShooting && tempoDisparo > 0.4f && municaoAtual>0){
             atirar();
             tempoDisparo = 0f;
@@ -64,24 +69,6 @@ public class PlayerShoot : MonoBehaviour
     }
 
     public void AlterarBarra(){
-        // float bulletFraction = ((float)municaoAtual / balas);
-        // Debug.Log("Municao Atual: "+ municaoAtual);
-        // bulletBar.fillAmount = bulletFraction;
-
-        // if(municaoAtual == 0){
-        //     float fillPercentage = Mathf.Clamp01(fillTimer / fillDuration);
-
-        //     bulletBar.fillAmount = fillPercentage;
-
-        //     // Se ainda não atingiu a duração total, incrementa o temporizador
-        //     if (fillTimer < fillDuration)
-        //     {
-        //         fillTimer += Time.deltaTime;
-        //     }
-        //     if(bulletBar.fillAmount == 1){
-        //         municaoAtual = balas;
-        //     }
-        // }
         if (municaoAtual > 0)
         {
             float bulletFraction = ((float)municaoAtual / balas);
