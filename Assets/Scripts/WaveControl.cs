@@ -11,7 +11,8 @@ public class WaveControl : MonoBehaviour
     public GameObject enemyPrefab;
     // Distância mínima entre o jogador e a posição de spawn dos inimigos
     public float minSpawnDistance = 10f;
-    //public WinScreen winScreen;
+    private int enemiesAlive = 0;
+
     void Start()
     {
         Debug.Log("Iniciando Wave " + currentWave);
@@ -20,22 +21,17 @@ public class WaveControl : MonoBehaviour
 
     void Update()
     {
-        if (currentWave > maxWaves)
-        {
-            Debug.Log("Você venceu todas as waves!");
-            return;
-        }
-
+        
     }
 
     public void EnemyDefeated()
     {
-        enemiesInWave--;
-
-        if (enemiesInWave <= 0)
+        if (currentWave > maxWaves)
         {
-            StartNextWave();
+            Debug.Log("Você venceu todas as waves!");
         }
+
+        StartNextWave();
     }
 
     private void StartNextWave()
@@ -48,15 +44,12 @@ public class WaveControl : MonoBehaviour
 
         currentWave++;
 
-/*
+
         if (currentWave > maxWaves)
         {
-            if (winScreen != null)
-            {
-                winScreen.ShowWinScreen();
-            }
+            Debug.Log("Voce Ganhou!!!!");
         }
-*/
+
     }
 
     private void SpawnEnemies()
@@ -80,5 +73,15 @@ public class WaveControl : MonoBehaviour
         Quaternion spawnRotation = Quaternion.identity; 
         GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, spawnRotation);
         newEnemy.GetComponent<EnemyMovement>().target = playerTransform;
+        newEnemy.GetComponent<HealthComponent>().onDeath.AddListener(OnEnemyDie);
+        enemiesAlive++;
+    }
+
+    private void OnEnemyDie() {
+        enemiesAlive--;
+
+        if (enemiesAlive == 0) {
+            EnemyDefeated();
+        }
     }
 }

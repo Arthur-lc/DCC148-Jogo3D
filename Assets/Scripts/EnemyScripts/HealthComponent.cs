@@ -7,7 +7,7 @@ public class HealthComponent : MonoBehaviour
     private float maxHp = 10f;
 
     [SerializeField]
-    private UnityEvent onDeath;
+    public UnityEvent onDeath;
 
     private float hp;
 
