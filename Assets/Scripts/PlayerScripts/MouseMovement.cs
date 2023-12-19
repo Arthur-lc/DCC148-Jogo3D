@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
+    [SerializeField] private Transform cameraTransform;
     public float mouseSensitivity = 100f;
     public float topClamp = -90f;
     public float bottomClamp = 90f;
 
     float xRotation = 0f;
     float yRotation = 0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,7 @@ public class MouseMovement : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, topClamp, bottomClamp);
         yRotation += mouseX;
 
-        transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);        
+        transform.localRotation = Quaternion.Euler(0, yRotation, 0f);
+        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0, 0f);
     }
 }
