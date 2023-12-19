@@ -97,7 +97,7 @@ public class WaveControl : MonoBehaviour
 
     public Vector3 GetRandomNavMeshPoint()
     {
-        // Generate a random point within the cube.
+        // Gera um ponto aleatório dentro de um cubo
         Vector3 randomPoint = new Vector3(
             Random.Range(-VolumeX / 2, VolumeX / 2),
             Random.Range(-VolumeZ / 2, VolumeZ / 2),
@@ -105,18 +105,14 @@ public class WaveControl : MonoBehaviour
         );
 
         randomPoint += transform.position;
-
-        // Initialize a NavMeshHit object to store the output.
         NavMeshHit hit;
 
-        // Get the closest point on NavMesh.
+        // Ponto mais proximo no navMesh
         if (NavMesh.SamplePosition(randomPoint, out hit, Mathf.Max(VolumeX, VolumeZ, VolumeY), NavMesh.AllAreas))
         {
-            // If the point is found, return it.
             return hit.position;
         }
 
-        // If no point is found, return Vector3.zero or any fallback position.
         return Vector3.zero;
     }
 
