@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     private float health;
@@ -66,5 +66,8 @@ public class PlayerHealth : MonoBehaviour
         health -= damage;
         durationTimer = 0;
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0.4f);
+        if(health <= 0){
+            SceneManager.LoadScene("Scenes/GameOver");
+        }
     }
 }
