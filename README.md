@@ -2,7 +2,10 @@
  Trabalho 1 da disciplina de Desenvolvimento de Jogos
 
  Alunos:
- Arthur Lima da Costa - 202135041 | Gabriel | Kaio de Oliveira e Sousa - 202165080AC | Ticiano de Oliveira Fracette - 202065189AC
+  Arthur Lima da Costa - 202135041
+  Gabriel Evaristo Carlos - 201965034B
+  Kaio de Oliveira e Sousa - 202165080AC
+  Ticiano de Oliveira Fracette - 202065189AC
 
  
  # JOGO FPS
