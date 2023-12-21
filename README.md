@@ -8,7 +8,7 @@
   Ticiano de Oliveira Fracette - 202065189AC<br>
 
  
- # JOGO FPS
+ # ROBOT DOOM
  
 ## Tutorial
 ### Keybindings:
@@ -19,6 +19,6 @@
     
 ## Objetivo do jogo:
     Atire e mate os inimigos para vencer as waves e o jogo!
-# Referências / Créditos
+
             
     
