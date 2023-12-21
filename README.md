@@ -10,14 +10,14 @@
  
  # JOGO FPS
  
-# Tutorial
-# Keybindings:
+## Tutorial
+### Keybindings:
     Direcionais e A W S D -> Movimentam o personagem
     Shift esquerdo-> Corre
     Espaço -> Pula
     Botão Direito do Mouse -> Atira
     
-# Objetivo do jogo:
+## Objetivo do jogo:
     Atire e mate os inimigos para vencer as waves e o jogo!
 # Referências / Créditos
             
