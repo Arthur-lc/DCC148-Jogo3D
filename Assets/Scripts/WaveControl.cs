@@ -26,33 +26,36 @@ public class WaveControl : MonoBehaviour
 
     void Start()
     {
-        currentWave = 0;
-        //enemiesAlive = enemiesAtStart;
-        //enemiesInWave = enemiesAtStart;
-        //Debug.Log("Iniciando Wave " + currentWave);
-        //GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, spawnRotation);
+        Debug.Log("Iniciando Wave " + currentWave);
+        StartNextWave();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+            StartNextWave();
+    }
+
+    public void EnemyDefeated()
+    {
+        if (currentWave > maxWaves)
+        {
+            Debug.Log("Você venceu todas as waves!");
+            SceneManager.LoadScene("Assets/Scenes/Win.unity");
+        }
+
         StartNextWave();
     }
 
     private void StartNextWave()
     {
+        Debug.Log("Iniciando Wave " + currentWave);
 
-        Debug.Log("Wave " + currentWave);
-        if (currentWave > maxWaves)
-        {
-            SceneManager.LoadScene("Scenes/Win");
-        }
-        else 
-        {
-            Debug.Log("Inimigos vivos: " + enemiesAlive);
-            currentWave++;
-            Debug.Log("Iniciando Wave " + currentWave);
-            enemiesInWave = currentWave + 2;
-            //enemiesAlive = enemiesInWave;
-            SpawnEnemies();
-            
-        }
+        enemiesInWave = currentWave + 2;
 
+        SpawnEnemies();
+
+        currentWave++;
     }
 
     private void SpawnEnemies()
