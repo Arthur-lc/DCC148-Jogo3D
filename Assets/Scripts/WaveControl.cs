@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class WaveControl : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class WaveControl : MonoBehaviour
         if (currentWave > maxWaves)
         {
             Debug.Log("Você venceu todas as waves!");
+            SceneManager.LoadScene("Assets/Scenes/Win.unity");
         }
 
         StartNextWave();
@@ -55,13 +57,6 @@ public class WaveControl : MonoBehaviour
         SpawnEnemies();
 
         currentWave++;
-
-
-        if (currentWave > maxWaves)
-        {
-            Debug.Log("Voce Ganhou!!!!");
-        }
-
     }
 
     private void SpawnEnemies()
