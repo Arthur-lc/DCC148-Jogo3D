@@ -6246,6 +6246,10 @@ PrefabInstance:
       value: 15.73
       objectReference: {fileID: 0}
     - target: {fileID: 8877300408528701993, guid: 2e0aae4804189114594ed8c2b4c915aa, type: 3}
+      propertyPath: maxWaves
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877300408528701993, guid: 2e0aae4804189114594ed8c2b4c915aa, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 2075036910}

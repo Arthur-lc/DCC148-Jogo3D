@@ -18,7 +18,7 @@
     Botão Direito do Mouse -> Atira
     
 ## Objetivo do jogo:
-    Atire e mate os inimigos para vencer as waves e o jogo!
+    Atire e mate 4 inimigos, sem morrer, para vencer as waves e o jogo!
 
             
     

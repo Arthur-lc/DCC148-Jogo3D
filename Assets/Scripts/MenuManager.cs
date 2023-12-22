@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private string cena = "Scenes/A";
+    private void Start() {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
     public void Jogar(){
         SceneManager.LoadScene(cena);
     }

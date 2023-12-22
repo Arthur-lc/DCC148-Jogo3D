@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.SceneManagement;
 public class WaveControl : MonoBehaviour
 {
     public class RandonNavMeshPointException : System.Exception
     {
         public RandonNavMeshPointException() : base("Não foi possivel encontrar um ponto valido") {}
     }
-
-    public int maxWaves = 5;
-    private int currentWave = 1;
-    private int enemiesInWave = 3;
+    //[SerializeField] private int enemiesAtStart = 3;
+    public int maxWaves;
+    private int currentWave = 0;
+    private int enemiesInWave;
     public Transform playerTransform;
     public GameObject enemyPrefab;
     // Distância mínima entre o jogador e a posição de spawn dos inimigos
     public float minSpawnDistance = 10f;
-    private int enemiesAlive = 0;
+    private int enemiesAlive;
 
     [Header("Spawn Volume")]
     [SerializeField] private float VolumeX = 2f;
@@ -26,40 +26,31 @@ public class WaveControl : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Iniciando Wave " + currentWave);
-        StartNextWave();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.J))
-            StartNextWave();
-    }
-
-    public void EnemyDefeated()
-    {
-        if (currentWave > maxWaves)
-        {
-            Debug.Log("Você venceu todas as waves!");
-        }
-
+        currentWave = 0;
+        //enemiesAlive = enemiesAtStart;
+        //enemiesInWave = enemiesAtStart;
+        //Debug.Log("Iniciando Wave " + currentWave);
+        //GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, spawnRotation);
         StartNextWave();
     }
 
     private void StartNextWave()
     {
-        Debug.Log("Iniciando Wave " + currentWave);
 
-        enemiesInWave = currentWave + 2;
-
-        SpawnEnemies();
-
-        currentWave++;
-
-
+        Debug.Log("Wave " + currentWave);
         if (currentWave > maxWaves)
         {
-            Debug.Log("Voce Ganhou!!!!");
+            SceneManager.LoadScene("Scenes/Win");
+        }
+        else 
+        {
+            Debug.Log("Inimigos vivos: " + enemiesAlive);
+            currentWave++;
+            Debug.Log("Iniciando Wave " + currentWave);
+            enemiesInWave = currentWave + 2;
+            //enemiesAlive = enemiesInWave;
+            SpawnEnemies();
+            
         }
 
     }
@@ -97,7 +88,7 @@ public class WaveControl : MonoBehaviour
         enemiesAlive--;
 
         if (enemiesAlive == 0) {
-            EnemyDefeated();
+            StartNextWave();
         }
     }
 
