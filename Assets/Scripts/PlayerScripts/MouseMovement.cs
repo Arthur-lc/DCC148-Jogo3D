@@ -30,7 +30,8 @@ public class MouseMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.N)) 
         {
-            mouseSensitivity -= 1;
+            if(mouseSensitivity > 1)
+                mouseSensitivity -= 1;
             Debug.Log(mouseSensitivity);
         }
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
