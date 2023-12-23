@@ -22,6 +22,17 @@ public class MouseMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.M)) 
+        {
+            mouseSensitivity += 1;
+            Debug.Log(mouseSensitivity);
+        }
+
+        if (Input.GetKey(KeyCode.N)) 
+        {
+            mouseSensitivity -= 1;
+            Debug.Log(mouseSensitivity);
+        }
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 

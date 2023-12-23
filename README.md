@@ -16,6 +16,8 @@
     Shift esquerdo-> Corre
     Espaço -> Pula
     Botão Direito do Mouse -> Atira
+    N -> Diminui a sensibilidade
+    M -> Aumenta a sensibilidade
     
 ## Objetivo do jogo:
     Atire e mate 4 inimigos, sem morrer, para vencer as waves e o jogo!

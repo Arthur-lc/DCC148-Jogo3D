@@ -10,7 +10,7 @@ public class WaveControl : MonoBehaviour
         public RandonNavMeshPointException() : base("Não foi possivel encontrar um ponto valido") {}
     }
     //[SerializeField] private int enemiesAtStart = 3;
-    public int maxWaves;
+    public int maxWaves = 2;
     private int currentWave = 0;
     private int enemiesInWave;
     public Transform playerTransform;
@@ -91,7 +91,8 @@ public class WaveControl : MonoBehaviour
         enemiesAlive--;
 
         if (enemiesAlive == 0) {
-            StartNextWave();
+            
+            EnemyDefeated();  
         }
     }
 
